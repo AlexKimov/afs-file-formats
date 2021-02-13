@@ -10,3 +10,5 @@
 | :--- | :--------- | :----------- | :---------- | :---------- | :---------- |
 | 1 | .bhm        | [BHM.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/BHM.bt)        | **90%**      |          |  персонажи |
 | 2 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **90%**      |            | уровни |
+
+![Boxer Wins](boxer.gif)
