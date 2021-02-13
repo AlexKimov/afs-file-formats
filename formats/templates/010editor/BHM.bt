@@ -1,0 +1,101 @@
+//------------------------------------------------
+//--- 010 Editor v8.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+typedef struct {
+  FLOAT x;
+  FLOAT y;
+  FLOAT z;
+} VECTOR_3F;
+
+typedef struct {
+  FLOAT x;
+  FLOAT y;
+} VECTOR_2F;
+
+typedef struct {
+  UINT x;
+  UINT y;
+  UINT z;
+} VECTOR_3UI;
+
+typedef struct {
+  INT16 x;
+  INT16 y;
+  INT16 z;
+} VECTOR_3I16;
+
+typedef struct {
+  UINT16 x;
+  UINT16 y;
+  UINT16 z;
+  UINT16 w;
+} VECTOR_4U16;
+
+char Magic[4];
+UINT Unknown;
+char Name[68];
+
+UINT FrameCount;
+UINT Unknown;
+UINT Unknown;
+
+UINT Offset;
+UINT Offset;
+UINT Offset;
+UINT Offset;
+UINT Size;
+
+struct {
+  FLOAT X;
+  FLOAT Y;
+  FLOAT Z;
+
+  FLOAT X;
+  FLOAT Y;
+  FLOAT Z;
+
+  FLOAT X;
+  FLOAT Y;
+  FLOAT Z;
+  FLOAT W;
+  char Name[16];
+} FRAME_DATA[FrameCount];
+
+char Name0[72];
+UINT FrameCount; 
+UINT MeshCount;
+UINT VertexCount;
+UINT FaceCount;
+UINT Offset;
+UINT Offset;
+UINT Offset;
+UINT Offset;
+UINT Offset;
+char Name1[68];
+
+VECTOR_3UI Indexes[FaceCount];
+VECTOR_2F TextureCoordinates[VertexCount];
+
+struct {
+  struct {
+    VECTOR_3I16 Coordinates <comment=coordinatesComment>; 
+    UBYTE Unknown;
+    UBYTE Unknown;
+  } FRAME_VERTEXES[VertexCount];
+} ANIMATION_FRAME[FrameCount];
+
+string coordinatesComment( VECTOR_3I16 &coordinates ) {
+  local string s;
+  SPrintf( s, "(%f, %f, %f)", coordinates.x/960.0, coordinates.y/960.0, coordinates.z/960.0 );
+  return s;
+}
