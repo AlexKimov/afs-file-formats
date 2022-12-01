@@ -2,6 +2,11 @@
 
 Форматы и плагины для просмотра файлов игры Месть боксера. Московский криминалитет. Описание форматов в шаблонах .bt для программы 010Editor.
 
+****Задачи:****
+- [x] Плагин BLENDER для просмотра BHM файлов
+- [ ] Плагин BLENDER для просмотра MS3d файлов
+- [ ] Плагин BLENDER для экспорта файлов в игру
+
 ![Boxer Wins](boxer.gif)
 
 ## Игры
@@ -12,8 +17,11 @@
 
 | № | Формат файла       | Шаблон (010Editor)     | Прогресс     |   Описание |
 | :--- | :--------- | :----------- | :---------- | :---------- | 
-| 1 | .bhm        | [BHM.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/BHM.bt)        | **99%**      |            персонажи |
+| 1 | .bhm        | [BHM.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/BHM.bt)        | **99%**      |            персонажи  |
 | 2 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **90%**      |             уровни |
+
+    Формат bhm - модель персонажа с вершинной анимацией
+    Формат ms3d - модель локации уровня, отдельно хранятся модели для света.
 
 **Плагины**
 
