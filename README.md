@@ -7,7 +7,14 @@
 - [ ] Плагин BLENDER для просмотра MS3d файлов
 - [ ] Плагин BLENDER для экспорта файлов в игру
 
+<details><summary>Say hi to boxer.</summary>
+<p>
+    
 ![Boxer Wins](boxer.gif)
+    
+</p>
+</details>
+
 
 ## Игры
 
