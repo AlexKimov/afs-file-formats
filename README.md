@@ -35,7 +35,7 @@
 | № | Плагин       | Программа | Описание |  
 | :--- | :--------- | :----------- | :---- | 
 | 1 | [io_scene_boxers_revenge_bhm](https://github.com/AlexKimov/afs-file-formats/blob/main/plugins/blender/io_scene_boxers_revenge_bhm/__init__.py) | Blender > 2.8 (проверено на 3.3) | Плагин для просмотра файлов моделей bhm с анимацией |
-| 2 | [io_scene_boxers_revenge_bhm](https://github.com/AlexKimov/afs-file-formats/blob/main/plugins/blender/io_scene_boxers_revenge_map/__init__.py) | Blender > 2.8 (проверено на 3.4) | Плагин для просмотра файлов уровней ms3d |
+| 2 | [io_scene_boxers_revenge_map](https://github.com/AlexKimov/afs-file-formats/blob/main/plugins/blender/io_scene_boxers_revenge_map/__init__.py) | Blender > 2.8 (проверено на 3.4) | Плагин для просмотра файлов уровней ms3d |
 
 ****Как установить Blender плагин****
 
