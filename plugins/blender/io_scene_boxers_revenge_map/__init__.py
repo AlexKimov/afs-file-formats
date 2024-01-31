@@ -131,24 +131,19 @@ class BRMapMeshVertex:
 class BRMapMeshFace:  
     def __init__(self):
         self.vertIndexes = Vector4UI16()
-        self.uvs = []
-
-    def getUVsStorage(self):
-        uvs = []
-        for uv in self.uvs: 
-            uvs += [ uv.y, uv.x]
-            
-        return uvs
+        self.uv1 = Vector3F()
+        self.uv2 = Vector3F()
+        
+    def glTexCoordsToBlenderUV(self):
+        return (self.uv1.x, 1 - self.uv2.x, self.uv1.y, 1 - self.uv2.y, self.uv1.z, 1 - self.uv2.z)           
     
     def read(self, reader):       
         self.vertIndexes.read(reader)
         reader.seek(36, os.SEEK_CUR) 
 
-        for i in range(3): 
-            uv = Vector2F()
-            uv.read(reader)
-            self.uvs.append(uv)
-            
+        self.uv1.read(reader)              
+        self.uv2.read(reader)              
+                    
         reader.seek(2, os.SEEK_CUR) 
        
        
@@ -253,24 +248,29 @@ def find_in_folder(folder, name):
     return None
 
 
-def load_map_file(bhm_filename, context, path, BATCH_LOAD=False):
-    fhandle = open(bhm_filename, "rb")
+def load_map_file(filename, context, path, BATCH_LOAD=False):
+    fhandle = open(filename, "rb")
     
     map = BRMAP(fhandle)
     map.read()   
     
     fhandle.close()
 
-    #meshes 
-    verts = [vert.vertexCoordinates.getStorage() for vert in map.vertexes]          
+    collection = None
     
+    #meshes 
+    verts = [vert.vertexCoordinates.getStorage() for vert in map.vertexes]   
+           
+    coll = bpy.data.collections.new(filename)
+    bpy.context.scene.collection.children.link(coll)
+            
     for msh in map.meshes:  
         uvs = []
         faces = []
         
         for i in msh.indexes:     
             faces += [map.faces[i].vertIndexes.getStorage()]
-            uvs += map.faces[i].getUVsStorage()
+            uvs += map.faces[i].glTexCoordsToBlenderUV()
 
         meshData = bpy.data.meshes.new(msh.name)    
         meshData.from_pydata(verts, [], faces)
@@ -282,11 +282,10 @@ def load_map_file(bhm_filename, context, path, BATCH_LOAD=False):
       
         obj = bpy.data.objects.new(msh.name, meshData)
       
-        scene = bpy.context.scene
-        scene.collection.objects.link(obj)
+        coll.objects.link(obj)         
         obj.select_set(True)
-        bpy.context.view_layer.objects.active = obj 
-         
+        bpy.context.view_layer.objects.active = obj
+                 
     os.chdir(path)
         
     # materials
@@ -297,7 +296,7 @@ def load_map_file(bhm_filename, context, path, BATCH_LOAD=False):
         principled = mat.node_tree.nodes["Principled BSDF"]  
         principled.inputs['Base Color'].default_value = (1.0, 1.0, 1.0, 1.0)    
         mappingNode = mat.node_tree.nodes.new('ShaderNodeMapping')
-#        mappingNode.inputs["Rotation"].default_value = (-3.14159, 0, 0)
+#        mappingNode.inputs["Rotation"].default_value = (0, 0, -1.570796)
 
         texCoordNode = mat.node_tree.nodes.new('ShaderNodeTexCoord')
         mat.node_tree.links.new(mappingNode.inputs['Vector'], texCoordNode.outputs['UV'])
@@ -321,8 +320,7 @@ def load_map_file(bhm_filename, context, path, BATCH_LOAD=False):
         mat.node_tree.links.new(principled.inputs['Base Color'], mixNode.outputs['Color'])
         mat.node_tree.links.new(texNode.inputs['Vector'], mappingNode.outputs['Vector'])        
         
-        bpy.data.objects[material.name].data.materials.append(mat)
-         
+        bpy.data.objects[material.name].data.materials.append(mat)         
     return
         
 
