@@ -46,4 +46,4 @@
        она должна быть в одной папке с файлом .bhm, если нет, то зайти в Shader Editor и задать файл вручную.
 
 ![Boxer Gazes](boxer2.gif)
-![Map](map.jpg|width=600)
+![Map](map.jpg)
