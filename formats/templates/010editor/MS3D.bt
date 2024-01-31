@@ -39,7 +39,10 @@ UINT16 FaceCount;
 struct {
   VECTOR_3U16 VertexIndexes;
   struct {
-    FLOAT Un[15];
+    VECTOR_3F Un;
+    VECTOR_3F Un;
+    VECTOR_3F Un;
+    FLOAT Unk[6];
   } FACE_PARAMS;
   UINT16 Unknown;
 } FACE_DATA[FaceCount];
