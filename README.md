@@ -4,7 +4,7 @@
 
 ****Задачи:****
 - [x] Плагин BLENDER для просмотра BHM файлов
-- [ ] Плагин BLENDER для просмотра MS3d файлов
+- [x] Плагин BLENDER для просмотра MS3d файлов
 - [ ] Плагин BLENDER для экспорта файлов в игру
 
 <details><summary>Say hi to boxer.</summary>
@@ -35,13 +35,14 @@
 | № | Плагин       | Программа | Описание |  
 | :--- | :--------- | :----------- | :---- | 
 | 1 | [io_scene_boxers_revenge_bhm](https://github.com/AlexKimov/afs-file-formats/blob/main/plugins/blender/io_scene_boxers_revenge_bhm/__init__.py) | Blender > 2.8 (проверено на 3.3) | Плагин для просмотра файлов моделей bhm с анимацией |
+| 2 | [io_scene_boxers_revenge_bhm](https://github.com/AlexKimov/afs-file-formats/blob/main/plugins/blender/io_scene_boxers_revenge_map/__init__.py) | Blender > 2.8 (проверено на 3.4) | Плагин для просмотра файлов уровней ms3d |
 
 ****Как установить Blender плагин****
 
-    1. Скопировать папку с плагином в папку Blender - x.x - scripts - addons....
+    1. Скопировать папку с плагином в папку Blender/x.x/scripts/addons....
     2. Запустить Blender, зайти в настройки (клавиши Ctrl + Alt + U или в меню Edit-Preferencies).
-    3. В списке слева выбрать addons, сверху выбрать Testing, найти плагин в списке и активировать его на квадрат.
-    4. Открыть .bhm файл через меню **File-Import**, справа в поле настроек можно написать название текстуры, чтобы плагин сам загрузил текстуру, 
+    3. В списке слева выбрать addons, найти плагин в списке и активировать его, нажав на квадрат.
+    4. Открыть файл через меню **File-Import**, справа в поле настроек можно написать название текстуры, чтобы плагин сам загрузил текстуру, 
        она должна быть в одной папке с файлом .bhm, если нет, то зайти в Shader Editor и задать файл вручную.
 
 ![Boxer Gazes](boxer2.gif)
