@@ -331,6 +331,7 @@ def load_bhm_file(bhm_filename, context, texture, BATCH_LOAD=False):
             # get vertex component list           
             co = [frame[idx].getStorage()[i] for frame in model.meshes[0].morphFrames]
 
+            # add vertexes to fcurve keyframes each coordinate component
             fc.keyframe_points.foreach_set("co", [x for co in zip(frames, co) for x in co])  
 
     bpy.context.scene.frame_end = model.meshes[0].frameCount
