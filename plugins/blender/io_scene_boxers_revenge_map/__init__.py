@@ -253,7 +253,7 @@ def find_in_folder(folder, name):
     return None
 
 
-def load_map_file(bhm_filename, context, BATCH_LOAD=False):
+def load_map_file(bhm_filename, context, path, BATCH_LOAD=False):
     fhandle = open(bhm_filename, "rb")
     
     map = BRMAP(fhandle)
@@ -287,8 +287,8 @@ def load_map_file(bhm_filename, context, BATCH_LOAD=False):
         obj.select_set(True)
         bpy.context.view_layer.objects.active = obj 
          
-  
-    os.chdir('C:\Games\Boxer')
+    os.chdir(path)
+        
     # materials
     for material in map.materials: 
         mat = bpy.data.materials.new('mat')
@@ -303,11 +303,13 @@ def load_map_file(bhm_filename, context, BATCH_LOAD=False):
         mat.node_tree.links.new(mappingNode.inputs['Vector'], texCoordNode.outputs['UV'])
         
         texNode = mat.node_tree.nodes.new('ShaderNodeTexImage')   
-                     
-        image = bpy.data.images.load(os.path.abspath(material.textures[0]))
-
-        image.alpha_mode = 'CHANNEL_PACKED' 
-        texNode.image = image
+        
+        try:   
+            image = bpy.data.images.load(os.path.abspath(material.textures[0]))
+            image.alpha_mode = 'CHANNEL_PACKED' 
+            texNode.image = image
+        except:
+            pass   
         
         mixNode = mat.node_tree.nodes.new('ShaderNodeMixRGB')
         mixNode.blend_type='MIX'
@@ -329,9 +331,18 @@ class ImportMAP(bpy.types.Operator, ImportHelper):
     bl_label = "Import map"
     bl_options = {"UNDO"}
 
+
     filter_glob : bpy.props.StringProperty(
         default = "*.ms3d",
         options = {"HIDDEN"},
+    ) 
+ 
+    gamePath : bpy.props.StringProperty(
+        name = "Game folder: ",
+        description = "Choose the game folder",
+        default = "C:\Games\Boxer",
+        maxlen = 1024,
+        subtype = 'FILE_NAME'
     ) 
       
     def execute(self, context):
@@ -341,7 +352,7 @@ class ImportMAP(bpy.types.Operator, ImportHelper):
             bpy.ops.object.mode_set(mode="OBJECT")
         bpy.ops.object.select_all(action="DESELECT")
         
-        load_map_file(self.filepath, context)
+        load_map_file(self.filepath, context, self.gamePath)
         
         bpy.ops.object.select_all(action="DESELECT")
         return {"FINISHED"}
