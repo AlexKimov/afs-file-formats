@@ -170,7 +170,7 @@ class BRMapMesh:
     def __init__(self):
         self.name = ""
         self.indexes = None
-        self.meshIndex = 0
+        self.matIndex = 0
         
     def read(self, reader):
         reader.seek(1, os.SEEK_CUR)
@@ -179,7 +179,7 @@ class BRMapMesh:
         indexCount = struct.unpack('H', reader.read(2))[0]       
         self.indexes = struct.unpack('H'*indexCount, reader.read(2 * indexCount))
         
-        self.meshIndex = struct.unpack('B', reader.read(1))[0]            
+        self.matIndex = struct.unpack('B', reader.read(1))[0]            
         
 
 class BRMAP: 
@@ -258,6 +258,8 @@ def load_map_file(filename, context, path, BATCH_LOAD=False):
 
     collection = None
     
+    os.chdir(path)   
+     
     #meshes 
     verts = [vert.vertexCoordinates.getStorage() for vert in map.vertexes]   
            
@@ -285,11 +287,8 @@ def load_map_file(filename, context, path, BATCH_LOAD=False):
         coll.objects.link(obj)         
         obj.select_set(True)
         bpy.context.view_layer.objects.active = obj
-                 
-    os.chdir(path)
-        
-    # materials
-    for material in map.materials: 
+         
+        # material
         mat = bpy.data.materials.new('mat')
         mat.use_nodes = True
     
@@ -304,7 +303,7 @@ def load_map_file(filename, context, path, BATCH_LOAD=False):
         texNode = mat.node_tree.nodes.new('ShaderNodeTexImage')   
         
         try:   
-            image = bpy.data.images.load(os.path.abspath(material.textures[0]))
+            image = bpy.data.images.load(os.path.abspath(map.materials[msh.matIndex].textures[0]))
             image.alpha_mode = 'CHANNEL_PACKED' 
             texNode.image = image
         except:
@@ -318,9 +317,10 @@ def load_map_file(filename, context, path, BATCH_LOAD=False):
         mat.node_tree.links.new(mixNode.inputs['Fac'], texNode.outputs['Alpha'])
 
         mat.node_tree.links.new(principled.inputs['Base Color'], mixNode.outputs['Color'])
-        mat.node_tree.links.new(texNode.inputs['Vector'], mappingNode.outputs['Vector'])        
-        
-        bpy.data.objects[material.name].data.materials.append(mat)         
+        mat.node_tree.links.new(texNode.inputs['Vector'], mappingNode.outputs['Vector'])                
+ 
+        obj.data.materials.append(mat)   
+              
     return
         
 
