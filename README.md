@@ -16,21 +16,24 @@
 </details>
 
 
-## Игры
+## Игры и форматы
 
 **1. Месть боксера. Московский криминалитет (2006)**
-
-**Форматы** 
 
 | № | Формат файла       | Шаблон (010Editor)     | Прогресс     |   Описание |
 | :--- | :--------- | :----------- | :---------- | :---------- | 
 | 1 | .bhm        | [BHM.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/BHM.bt)        | **99%**      |            персонажи  |
-| 2 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **90%**      |             уровни |
+| 2 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **99%**      |             уровни |
 
     Формат bhm - модель персонажа с вершинной анимацией
     Формат ms3d - модель локации уровня, отдельно хранятся модели для света.
 
-**Плагины**
+**2. Russian racing (2008)**
+
+| № | Формат файла       | Шаблон (010Editor)     | Прогресс     |   Описание |
+| 1 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **90%**      |   уровни, автомобили |
+
+## Плагины
 
 | № | Плагин       | Программа | Описание |  
 | :--- | :--------- | :----------- | :---- | 
