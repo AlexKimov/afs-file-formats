@@ -31,6 +31,7 @@
 **2. Russian racing (2008)**
 
 | № | Формат файла       | Шаблон (010Editor)     | Прогресс     |   Описание |
+| :--- | :--------- | :----------- | :---------- | :---------- | 
 | 1 | .ms3d        | [MS3D.bt](https://github.com/AlexKimov/afs-file-formats/blob/main/formats/templates/010editor/MS3D.bt)        | **90%**      |   уровни, автомобили |
 
 ## Плагины
