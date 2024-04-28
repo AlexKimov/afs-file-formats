@@ -1,7 +1,7 @@
 # Описание
 
-Форматы и плагины для просмотра файлов игр от Alligator Friends Software, Bug Hunter Software, 7 Stars Software. Описание форматов в шаблонах .bt для программы 010Editor.
-Список некоторых игр https://www.old-games.ru/catalog/?developerCompany=2641 , https://www.old-games.ru/catalog/?developerCompany=4228 .
+Форматы и плагины для просмотра файлов игр от Alligator Friends Software, Bug Hunter Software, 7 Stars Software. Описание форматов в шаблонах .bt для программы 010Editor.  
+Список некоторых игр [1](https://www.old-games.ru/catalog/?developerCompany=2641), [2](https://www.old-games.ru/catalog/?developerCompany=4228) .
 
 ### Краткое введение в форматы файлов
 
