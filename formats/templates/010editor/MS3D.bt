@@ -11,8 +11,10 @@
 //   History: 
 //------------------------------------------------
 
+// MilkShape 3D format https://paulbourke.net/dataformats/ms3d/ms3dspec.h
+
 char Magic[10];
-UINT Unknown; // version ?
+UINT Version; 
 
 typedef struct {
   FLOAT x;
@@ -21,56 +23,69 @@ typedef struct {
 } VECTOR_3F;
 
 typedef struct {
+  FLOAT x;
+  FLOAT y;
+  FLOAT z;
+  FLOAT w;
+} VECTOR_4F;
+
+typedef struct {
   UINT16 x;
   UINT16 y;
   UINT16 z;
-  UINT16 w;
 } VECTOR_3U16;
 
 UINT16 VertexCount;
 
 struct {
-  BYTE Unknown;
+  BYTE flags;
   VECTOR_3F Position;
-  UINT16 Unknown;  
+  char BoneId;
+  BYTE ReferenceCount;
 } VERTEXES[VertexCount];
 
 UINT16 FaceCount;
 struct {
+  UINT16 flags;
   VECTOR_3U16 VertexIndexes;
-  struct {
-    VECTOR_3F Un;
-    VECTOR_3F Un;
-    VECTOR_3F Un;
-    FLOAT Unk[6];
-  } FACE_PARAMS;
-  UINT16 Unknown;
+  VECTOR_3F Normal;
+  VECTOR_3F Normal;
+  VECTOR_3F Normal;
+  VECTOR_3F S;
+  VECTOR_3F T;
+  byte SmoothingGroup;
+  byte GroupIndex;
 } FACE_DATA[FaceCount];
 
 struct {
   UINT16 MeshCount;
   struct {
-    BYTE Unknown1;
+    BYTE flags;
     char Name[32];
-
     UINT16 VertexIndexCount;
     UINT16 Index[VertexIndexCount];
-    BYTE Index;
+    BYTE MatIndex;
   } MESH[MeshCount] <optimize=false>;
 } MESHES;
 
 struct {
-  UINT16 TextureCount;
+  UINT16 matNum;
   struct {
     char Name[32];
-    FLOAT TextureProperties[18];
-    BYTE TextureCount;
-    struct {
-      char Name[128];
-    } TEXTURE_NAME[TextureCount];
-  } TEXTURE[TextureCount] <optimize=false>;
-} TEXTURES;
+    VECTOR_4F ambient;
+    VECTOR_4F diffuse;
+    VECTOR_4F specular;
+    VECTOR_4F emissive;
+    float shininess;
+    float transparency; 
+    BYTE mode;
+    char TextureName[128];
+    char AlphaMapName[128];
+  } material[matNum] <optimize=false>;
+} MATERIALS;
 
-FLOAT Unknown;
-FLOAT Unknown;
-UINT Unknown;
+FLOAT fAnimationFPS;
+FLOAT fCurrentTime;
+UINT iTotalFrames;
+
+UINT16 JointsNum;

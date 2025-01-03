@@ -11,11 +11,22 @@
 //   History: 
 //------------------------------------------------
 
+// it's md3 format mostly https://icculus.org/~phaethon/q3a/formats/md3format.html
+
+const float XYZ_SCALE_FACTOR = 1.0/960;
+
 typedef struct {
   FLOAT x;
   FLOAT y;
   FLOAT z;
 } VECTOR_3F;
+
+typedef struct {
+  FLOAT x;
+  FLOAT y;
+  FLOAT z;
+  FLOAT z;
+} VECTOR_4F;
 
 typedef struct {
   FLOAT x;
@@ -42,46 +53,43 @@ typedef struct {
 } VECTOR_4U16;
 
 char Magic[4];
-UINT Unknown;
-char Name[68];
+UINT Version;
+char Name[64];
 
+UINT flags;
 UINT FrameCount;
-UINT Unknown;
-UINT Unknown;
+UINT TagsNum;
+UINT SurfacesNum;
 
-UINT Offset;
-UINT Offset;
-UINT Offset;
-UINT Offset;
-UINT Size;
+UINT SkinNum;
+UINT OffsetFrames;
+UINT OffsetTags;
+UINT OffsetSurfaces;
+UINT OffsetEof;
 
 struct {
-  FLOAT X;
-  FLOAT Y;
-  FLOAT Z;
-
-  FLOAT X;
-  FLOAT Y;
-  FLOAT Z;
-
-  FLOAT X;
-  FLOAT Y;
-  FLOAT Z;
-  FLOAT W;
-  char Name[16];
+  VECTOR_3F MinBounds;
+  VECTOR_3F MaxBounds;
+  VECTOR_3F LocalOrigin;
+  float SphereRadius;
+  char FrameName[16];
 } FRAME_DATA[FrameCount];
 
-char Name0[72];
+char Ident[4];
+char SurfaceName[64];
+UINT Flags;
 UINT FrameCount; 
-UINT MeshCount;
+UINT ShaderCount;
 UINT VertexCount;
 UINT FaceCount;
 UINT Offset;
 UINT Offset;
 UINT Offset;
+UINT OffsetXYZNormal;
 UINT Offset;
-UINT Offset;
-char Name1[68];
+
+char ShaderName[64];
+UINT ShaderIndex;
 
 VECTOR_3UI Indexes[FaceCount];
 VECTOR_2F TextureCoordinates[VertexCount];
@@ -89,13 +97,13 @@ VECTOR_2F TextureCoordinates[VertexCount];
 struct {
   struct {
     VECTOR_3I16 Coordinates <comment=coordinatesComment>; 
-    UBYTE Unknown;
-    UBYTE Unknown;
+    UINT16 Normal;
   } FRAME_VERTEXES[VertexCount];
-} ANIMATION_FRAME[FrameCount];
+} VERTEXES[FrameCount];
 
-string coordinatesComment( VECTOR_3I16 &coordinates ) {
+string coordinatesComment(VECTOR_3I16 &coordinates) {
   local string s;
-  SPrintf( s, "(%f, %f, %f)", coordinates.x/960.0, coordinates.y/960.0, coordinates.z/960.0 );
+  SPrintf(s, "(%f, %f, %f)", coordinates.x * XYZ_SCALE_FACTOR, 
+    coordinates.y * XYZ_SCALE_FACTOR, coordinates.z* XYZ_SCALE_FACTOR);
   return s;
 }
